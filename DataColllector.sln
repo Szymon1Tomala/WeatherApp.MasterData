@@ -1,16 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapters", "Adapters\Adapters.csproj", "{B4D397A5-8324-43AA-AE56-934BDF6D1CAB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2BDB7A82-8D9C-4A96-BDA2-70C22100F229}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adapters", "src\Adapters\Adapters.csproj", "{B4D397A5-8324-43AA-AE56-934BDF6D1CAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{CB424135-E0F8-4482-8307-8D05992BA694}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1B3C7612-3EFF-4B95-BA2D-40A147AA6971}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdapterTests", "AdapterTests\AdapterTests.csproj", "{F312CA76-BFA2-4792-9305-1A609DBDE4D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdapterTests", "tests\AdapterTests\AdapterTests.csproj", "{F312CA76-BFA2-4792-9305-1A609DBDE4D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{CB424135-E0F8-4482-8307-8D05992BA694}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTests", "DomainTests\DomainTests.csproj", "{5187AC6F-1FCD-43FA-83A2-09D8C4557684}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTests", "tests\DomainTests\DomainTests.csproj", "{5187AC6F-1FCD-43FA-83A2-09D8C4557684}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
