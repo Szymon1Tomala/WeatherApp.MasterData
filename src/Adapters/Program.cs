@@ -1,11 +1,16 @@
 using Adapters.Inbound.Rest;
 using Domain.Persistence;
+using Domain.Persistence.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityCore<User>().AddEntityFrameworkStores<DatabaseContext>();
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     var configuration = new ConfigurationBuilder()
