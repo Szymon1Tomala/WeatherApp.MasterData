@@ -1,4 +1,4 @@
-namespace DataColllector;
+namespace Adapters;
 
 public class Worker : BackgroundService
 {
