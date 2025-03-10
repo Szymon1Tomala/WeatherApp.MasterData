@@ -8,9 +8,9 @@ namespace Domain.Persistence;
 public class DatabaseContext(DbContextOptions<DatabaseContext> options) : IdentityDbContext<User>(options)
 {
     public DbSet<User> Users { get; set; }
-    //public DbSet<UserCity> UserCities { get; set; }
-    //public DbSet<Country> Countries { get; set; }
-    //public DbSet<City> Cities { get; set; }
+    public DbSet<UserCity> UserCities { get; set; }
+    public DbSet<Country> Countries { get; set; }
+    public DbSet<City> Cities { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,8 +26,8 @@ public class DatabaseContext(DbContextOptions<DatabaseContext> options) : Identi
         }
         
         modelBuilder.ApplyConfiguration(new UserConfiguration());
-        //modelBuilder.ApplyConfiguration(new UserCityConfiguration());
-        //modelBuilder.ApplyConfiguration(new CountryConfiguration());
-        //modelBuilder.ApplyConfiguration(new CityConfiguration());
+        modelBuilder.ApplyConfiguration(new UserCityConfiguration());
+        modelBuilder.ApplyConfiguration(new CountryConfiguration());
+        modelBuilder.ApplyConfiguration(new CityConfiguration());
     }
 }

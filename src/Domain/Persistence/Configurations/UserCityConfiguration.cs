@@ -8,7 +8,7 @@ public class UserCityConfiguration : IEntityTypeConfiguration<UserCity>
 {
     public void Configure(EntityTypeBuilder<UserCity> builder)
     {
-        builder.ToTable("UserCity");
+        builder.ToTable("UserCity", "domain");
         
         builder.HasKey(x => x.Id);
         builder.HasOne<User>().WithMany().HasForeignKey(uc => uc.UserId);
