@@ -1,8 +1,8 @@
-﻿using Domain1.Persistence.Configurations;
-using Domain1.Persistence.Entities;
+﻿using Domain.Persistence.Configurations;
+using Domain.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Domain1.Persistence;
+namespace Domain.Persistence;
 
 public class DatabaseContext(DbContextOptions<DatabaseContext> options) : DbContext(options)
 {

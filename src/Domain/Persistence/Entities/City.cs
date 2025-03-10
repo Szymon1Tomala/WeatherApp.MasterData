@@ -1,4 +1,4 @@
-﻿namespace Domain1.Persistence.Entities;
+﻿namespace Domain.Persistence.Entities;
 
 public class City
 {

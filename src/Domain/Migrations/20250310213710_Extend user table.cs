@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Domain1.Migrations
+namespace Domain.Migrations
 {
     /// <inheritdoc />
     public partial class Extendusertable : Migration

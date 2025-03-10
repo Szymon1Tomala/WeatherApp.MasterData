@@ -1,8 +1,8 @@
-﻿using Domain1.Persistence.Entities;
+﻿using Domain.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Domain1.Persistence.Configurations;
+namespace Domain.Persistence.Configurations;
 
 public class UserCityConfiguration : IEntityTypeConfiguration<UserCity>
 {

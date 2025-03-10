@@ -1,9 +1,9 @@
 ﻿
-using Domain1.Persistence;
-using Domain1.Persistence.Entities;
+using Domain.Persistence;
+using Domain.Persistence.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain1.Services;
+namespace Domain.Services;
 
 public class UserService(DatabaseContext databaseContext)
 {

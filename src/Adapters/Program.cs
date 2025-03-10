@@ -1,5 +1,5 @@
 using Adapters.Inbound.Rest;
-using Domain1.Persistence;
+using Domain.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
