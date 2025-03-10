@@ -1,4 +1,5 @@
 ﻿using Adapters.Inbound.Rest.Requests;
+using Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Adapters.Inbound.Rest;
@@ -14,10 +15,8 @@ public static class UserController
         app.MapPost(UserPreferencesUriPrefix, async 
             (
                 [FromBody] CreateUserRequest createUserRequest,
-                CancellationToken cancellationToken
-            ) =>
-        {
-            return "";
-        });
+                [FromServices] UserService userService
+            ) => await userService.CreateUserAsync(createUserRequest.FirstName, createUserRequest.LastName, 
+            createUserRequest.Email, createUserRequest.Password));
     }
 }
