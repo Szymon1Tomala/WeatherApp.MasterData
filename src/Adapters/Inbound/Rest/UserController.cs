@@ -1,11 +1,11 @@
-﻿using Adapters.Requests;
+﻿using Adapters.Inbound.Rest.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Adapters.Inbound.Rest;
 
 public static class UserController
 {
-    private const string UserPreferencesUriPrefix = "/v1/UserPreferences";
+    private const string UserPreferencesUriPrefix = "/v1/users";
 
     public static void ConfigureUserPreferencesEndpoints(this WebApplication app)
     {
@@ -17,7 +17,7 @@ public static class UserController
                 CancellationToken cancellationToken
             ) =>
         {
-            
+            return "";
         });
     }
 }
