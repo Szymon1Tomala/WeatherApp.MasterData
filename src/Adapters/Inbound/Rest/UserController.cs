@@ -1,6 +1,5 @@
 ﻿using Adapters.Inbound.Rest.Requests;
-using Domain.Interfaces;
-using Domain.Services;
+using Domain.Interfaces.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Adapters.Inbound.Rest;
@@ -14,7 +13,7 @@ public static class UserController
         app.MapPost(UserPreferencesUriPrefix, async 
             (
                 [FromBody] CreateUserRequest createUserRequest,
-                [FromServices] IUserService userService
+                [FromServices] IUserCreationService userService
             ) => await userService.CreateUserAsync(createUserRequest.FirstName, createUserRequest.LastName, 
                 createUserRequest.Email, createUserRequest.Password));
 
@@ -22,7 +21,7 @@ public static class UserController
             (
                 [FromRoute] string userId,
                 [FromBody] ChangeUserPasswordRequest changeUserPasswordRequest,
-                [FromServices] IUserService userService
+                [FromServices] IChangeUserPasswordService userService
             ) => await userService.ChangeUserPasswordAsync(userId,
                 changeUserPasswordRequest.CurrentPassword, changeUserPasswordRequest.NewPassword));
         
@@ -30,14 +29,14 @@ public static class UserController
             (
                 [FromRoute] string userId,
                 [FromBody] ChangeUserEmailRequest changeUserEmailRequest,
-                [FromServices] IUserService userService
+                [FromServices] IChangeUserEmailService userService
             ) => await userService.ChangeUserEmailAsync(userId, changeUserEmailRequest.NewEmail));
         
         app.MapPatch($"{UserPreferencesUriPrefix}/{{userId}}", async
             (
                 [FromRoute] string userId,
                 [FromBody] EditUserRequest editUserRequest,
-                [FromServices] IUserService userService
+                [FromServices] IEditUserService userService
             ) => await userService.EditUserAsync(userId,
                 editUserRequest.FirstName, editUserRequest.LastName));
     }

@@ -1,8 +1,8 @@
 using Adapters.Inbound.Rest;
-using Domain.Interfaces;
+using Domain.Interfaces.Users;
 using Domain.Persistence;
 using Domain.Persistence.Entities;
-using Domain.Services;
+using Domain.Services.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +13,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityCore<User>().AddEntityFrameworkStores<DatabaseContext>();
-builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IUserCreationService, UserCreationService>();
+builder.Services.AddTransient<IChangeUserPasswordService, ChangeUserPasswordService>();
+builder.Services.AddTransient<IChangeUserEmailService, ChangeUserEmailService>();
+builder.Services.AddTransient<IEditUserService, EditUserService>();
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     var configuration = new ConfigurationBuilder()
