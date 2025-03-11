@@ -1,4 +1,5 @@
-﻿using Domain.Persistence.Entities;
+﻿using System.Text;
+using Domain.Persistence.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Services;
@@ -17,9 +18,16 @@ public class UserService(UserManager<User> userManager)
 
         var result = await userManager.CreateAsync(user, password);
 
-        if (!result.Succeeded)
+        if (result.Succeeded)
         {
-            return result.Errors.ToString();
+            return "User created successfully";
+        }
+        
+        var stringBuilder = new StringBuilder();
+
+        foreach (var error in result.Errors)
+        {
+            stringBuilder.AppendLine($"{error.Code}: {error.Description}");
         }
 
         return "User created successfully";
