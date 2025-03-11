@@ -30,6 +30,6 @@ public class UserService(UserManager<User> userManager)
             stringBuilder.AppendLine($"{error.Code}: {error.Description}");
         }
 
-        return "User created successfully";
+        return stringBuilder.ToString();
     }
 }

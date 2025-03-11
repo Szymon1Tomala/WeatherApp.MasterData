@@ -36,3 +36,5 @@ app.UseHttpsRedirection();
 app.ConfigureUserPreferencesEndpoints();
 
 app.Run();
+
+public partial class Program;

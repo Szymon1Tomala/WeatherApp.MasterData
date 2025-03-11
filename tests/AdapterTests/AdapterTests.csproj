@@ -7,8 +7,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Inbound\" />
       <Folder Include="Outbound\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentAssertions" Version="8.1.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.13" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+      <PackageReference Include="Testcontainers.MsSql" Version="4.3.0" />
+      <PackageReference Include="xunit.core" Version="2.9.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Adapters\Adapters.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Fixture.cs" />
     </ItemGroup>
 
 </Project>
