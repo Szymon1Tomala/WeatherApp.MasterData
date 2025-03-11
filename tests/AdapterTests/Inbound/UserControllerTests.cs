@@ -47,7 +47,8 @@ public class UserControllerTests(WebApplicationFactory<Program> factory) : BaseC
         {
             FirstName = firstName, 
             LastName = lastName,
-            Email = email
+            Email = email,
+            NormalizedEmail = email.ToUpper(),
         });
         await db.SaveChangesAsync();
         
@@ -55,10 +56,9 @@ public class UserControllerTests(WebApplicationFactory<Program> factory) : BaseC
         
         var response = await SendRequest(HttpMethodEnum.POST, "/v1/users", createUserRequest);
 
-        var responseMessage = await AssertOkStatusAndGetResponseMessage(response);
+        var responseMessage = await response.Content.ReadAsStringAsync();
+        responseMessage.Should().Contain($"Can't create user with email: {email}\nUser with this email already exists");
         
-        responseMessage.Should().Be("User created successfully");
-
         await db.Users.Where(x => x.Email == createUserRequest.Email).ExecuteDeleteAsync();
     }
     

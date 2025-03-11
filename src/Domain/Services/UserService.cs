@@ -8,6 +8,14 @@ public class UserService(UserManager<User> userManager)
 {
     public async Task<string> CreateUserAsync(string firstName, string lastName, string email, string password)
     {
+        var doesUserExist = await userManager.FindByEmailAsync(email)
+            .ContinueWith(x => x.Result is not null);
+
+        if (doesUserExist)
+        {
+            throw new ArgumentException($"Can't create user with email: {email}\nUser with this email already exists");    
+        }
+        
         var user = new User
         {
             UserName = email,
