@@ -1,4 +1,5 @@
 ﻿using Adapters.Inbound.Rest.Requests;
+using Domain.Interfaces;
 using Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ public static class UserController
         app.MapPost(UserPreferencesUriPrefix, async 
             (
                 [FromBody] CreateUserRequest createUserRequest,
-                [FromServices] UserService userService
+                [FromServices] IUserService userService
             ) => await userService.CreateUserAsync(createUserRequest.FirstName, createUserRequest.LastName, 
                 createUserRequest.Email, createUserRequest.Password));
 
@@ -21,7 +22,7 @@ public static class UserController
             (
                 [FromRoute] string userId,
                 [FromBody] ChangeUserPasswordRequest changeUserPasswordRequest,
-                [FromServices] UserService userService
+                [FromServices] IUserService userService
             ) => await userService.ChangeUserPasswordAsync(userId,
                 changeUserPasswordRequest.CurrentPassword, changeUserPasswordRequest.NewPassword));
         
@@ -29,14 +30,14 @@ public static class UserController
             (
                 [FromRoute] string userId,
                 [FromBody] ChangeUserEmailRequest changeUserEmailRequest,
-                [FromServices] UserService userService
+                [FromServices] IUserService userService
             ) => await userService.ChangeUserEmailAsync(userId, changeUserEmailRequest.NewEmail));
         
         app.MapPatch($"{UserPreferencesUriPrefix}/{{userId}}", async
             (
                 [FromRoute] string userId,
                 [FromBody] EditUserRequest editUserRequest,
-                [FromServices] UserService userService
+                [FromServices] IUserService userService
             ) => await userService.EditUserAsync(userId,
                 editUserRequest.FirstName, editUserRequest.LastName));
     }

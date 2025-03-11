@@ -1,10 +1,11 @@
 ﻿using System.Text;
+using Domain.Interfaces;
 using Domain.Persistence.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Services;
 
-public class UserService(UserManager<User> userManager)
+public class UserService(UserManager<User> userManager) : IUserService
 {
     public async Task<string> CreateUserAsync(string firstName, string lastName, string email, string password)
     {

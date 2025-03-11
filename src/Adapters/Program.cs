@@ -1,4 +1,5 @@
 using Adapters.Inbound.Rest;
+using Domain.Interfaces;
 using Domain.Persistence;
 using Domain.Persistence.Entities;
 using Domain.Services;
@@ -12,7 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityCore<User>().AddEntityFrameworkStores<DatabaseContext>();
-builder.Services.AddTransient<UserService>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     var configuration = new ConfigurationBuilder()
