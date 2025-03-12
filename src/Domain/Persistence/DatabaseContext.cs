@@ -11,6 +11,7 @@ public class DatabaseContext(DbContextOptions<DatabaseContext> options) : Identi
     public DbSet<UserCity> UserCities { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<City> Cities { get; set; }
+    public DbSet<Event> Events { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

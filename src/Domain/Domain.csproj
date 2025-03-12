@@ -21,4 +21,8 @@
       <Reference Include="Microsoft.Extensions.Identity.Stores" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services\Outbox\" />
+    </ItemGroup>
+
 </Project>

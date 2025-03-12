@@ -1,13 +1,14 @@
 ﻿using System.Text;
 using Domain.Interfaces.Users;
 using Domain.Messages;
+using Domain.Persistence;
 using Domain.Persistence.Entities;
-using Domain.Services.RabbitMQ;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace Domain.Services.Users;
 
-public class UserCreationService(UserManager<User> userManager, MessagePublisher publisher) : IUserCreationService
+public class UserCreationService(UserManager<User> userManager, DatabaseContext databaseContext) : IUserCreationService
 {
     public async Task<string> CreateUserAsync(string firstName, string lastName, string email, string password)
     {
@@ -30,8 +31,17 @@ public class UserCreationService(UserManager<User> userManager, MessagePublisher
 
         if (result.Succeeded)
         {
-            var userCreatedMessage = new UserCreatedMessage(new Guid(user.Id), user.FirstName, user.LastName, user.Email);
-            await publisher.Publish(userCreatedMessage);
+            var userCreatedEvent = new UserCreatedMessage(new Guid(user.Id), user.FirstName, user.LastName, user.Email);
+            var @event = new Event
+            {
+                Id = Guid.NewGuid(),
+                Content = JsonConvert.SerializeObject(userCreatedEvent),
+                Status = EventStatus.Pending,
+                CreatedOn = DateTimeOffset.Now,
+            };
+            await databaseContext.Events.AddAsync(@event);
+            await databaseContext.SaveChangesAsync();
+            
             return "User created successfully";
         }
         
