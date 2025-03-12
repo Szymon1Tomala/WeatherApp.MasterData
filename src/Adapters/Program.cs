@@ -4,6 +4,8 @@ using Domain.Persistence;
 using Domain.Persistence.Entities;
 using Domain.Services.RabbitMQ;
 using Domain.Services.Users;
+using Hangfire;
+using HangfireBasicAuthenticationFilter;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +20,8 @@ builder.Services.AddTransient<IUserCreationService, UserCreationService>();
 builder.Services.AddTransient<IChangeUserPasswordService, ChangeUserPasswordService>();
 builder.Services.AddTransient<IChangeUserEmailService, ChangeUserEmailService>();
 builder.Services.AddTransient<IEditUserService, EditUserService>();
-builder.Services.AddSingleton<MessagePublisher>();
+builder.Services.AddScoped<EventDeliveryService>();
+builder.Services.AddHangfireServer();
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     var configuration = new ConfigurationBuilder()
@@ -27,6 +30,13 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
         .Build();
 
     options.UseSqlServer(configuration.GetConnectionString("Connection"));
+});
+builder.Services.AddHangfire(opt =>
+{
+    opt.UseSqlServerStorage(builder.Configuration.GetConnectionString("Connection"))
+        .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+        .UseSimpleAssemblyNameTypeSerializer()
+        .UseRecommendedSerializerSettings();
 });
 
 var app = builder.Build();
@@ -37,6 +47,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    Authorization =
+    [
+        new HangfireCustomBasicAuthenticationFilter
+        {
+            User = builder.Configuration.GetSection("HangfireSettings:UserName").Value,
+            Pass = builder.Configuration.GetSection("HangfireSettings:Password").Value
+        }
+    ]
+});
+
+RecurringJob.AddOrUpdate<EventDeliveryService>("publishing-events", service => service.PublishEvents(), Cron.Minutely);
 
 app.UseHttpsRedirection();
 app.ConfigureUserPreferencesEndpoints();

@@ -9,6 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Hangfire" Version="1.8.18" />
+        <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" Version="7.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2" />
@@ -24,7 +26,6 @@
 
     <ItemGroup>
       <Folder Include="Inbound\" />
-      <Folder Include="Outbound\" />
     </ItemGroup>
 
     <ItemGroup>
