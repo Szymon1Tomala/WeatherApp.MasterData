@@ -29,5 +29,6 @@ public class DatabaseContext(DbContextOptions<DatabaseContext> options) : Identi
         modelBuilder.ApplyConfiguration(new UserCityConfiguration());
         modelBuilder.ApplyConfiguration(new CountryConfiguration());
         modelBuilder.ApplyConfiguration(new CityConfiguration());
+        modelBuilder.ApplyConfiguration(new EventConfiguration());
     }
 }
