@@ -2,6 +2,7 @@ using Adapters.Inbound.Rest;
 using Domain.Interfaces.Users;
 using Domain.Persistence;
 using Domain.Persistence.Entities;
+using Domain.Services.RabbitMQ;
 using Domain.Services.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ builder.Services.AddTransient<IUserCreationService, UserCreationService>();
 builder.Services.AddTransient<IChangeUserPasswordService, ChangeUserPasswordService>();
 builder.Services.AddTransient<IChangeUserEmailService, ChangeUserEmailService>();
 builder.Services.AddTransient<IEditUserService, EditUserService>();
+builder.Services.AddSingleton<MessagePublisher>();
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     var configuration = new ConfigurationBuilder()
