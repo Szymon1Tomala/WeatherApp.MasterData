@@ -1,4 +1,5 @@
 using Adapters.Inbound.Rest;
+using Adapters.Outbound.RabbitMQ;
 using Domain.Interfaces.Users;
 using Domain.Persistence;
 using Domain.Persistence.Entities;
@@ -60,7 +61,8 @@ app.UseHangfireDashboard("/hangfire", new DashboardOptions
     ]
 });
 
-RecurringJob.AddOrUpdate<EventDeliveryService>("publishing-events", service => service.PublishEvents(), Cron.Minutely);
+RecurringJob.AddOrUpdate<EventDeliveryBackgroundJob>("publishing-events", 
+    service => service.PublishEvents(), "*/5 * * * *");
 
 app.UseHttpsRedirection();
 app.ConfigureUserPreferencesEndpoints();

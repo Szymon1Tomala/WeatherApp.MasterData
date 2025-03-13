@@ -1,6 +1,11 @@
-﻿namespace Adapters.Outbound.RabbitMQ;
+﻿using Domain.Services.RabbitMQ;
 
-public class EventDeliveryBackgroundJob
+namespace Adapters.Outbound.RabbitMQ;
+
+public class EventDeliveryBackgroundJob(EventDeliveryService service)
 {
-    
+    public async Task PublishEvents()
+    {
+        await service.PublishEvents();
+    }
 }
